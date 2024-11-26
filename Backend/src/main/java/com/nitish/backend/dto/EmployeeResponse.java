@@ -3,16 +3,16 @@ package com.nitish.backend.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record EmployeeResponse(
-        @JsonProperty("first_name")
+//        @JsonProperty("firstName")
         String firstName,
-        @JsonProperty("last_name")
+//        @JsonProperty("lastName")
         String lastName,
-        @JsonProperty("email")
+//        @JsonProperty("email")
         String email,
-        @JsonProperty("title")
+//        @JsonProperty("title")
         String title,
-        @JsonProperty("photograph_path")
-        String photographPath,
-        @JsonProperty("department")
-        long department){
+//        @JsonProperty("photograph_path")
+//        String photographPath,
+//        @JsonProperty("department")
+        String department){
 }

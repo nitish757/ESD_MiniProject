@@ -1,17 +1,19 @@
 package com.nitish.backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public record SalaryResponse(
-        @JsonProperty("payment_date")
-        Date paymentDate,
-        @JsonProperty("salary")
+//        @JsonProperty("payment_date")
+        @JsonFormat(pattern="dd-MM-yyyy")
+        LocalDateTime paymentDate,
+//        @JsonProperty("salary")
         int salary,
-        @JsonProperty("first_name")
-        String firstName,
-        @JsonProperty("last_name")
-        String lastName
+//       @JsonProperty("description")
+        String description
 ) {
 }

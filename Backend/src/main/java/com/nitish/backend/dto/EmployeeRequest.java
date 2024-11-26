@@ -7,31 +7,31 @@ public record EmployeeRequest(
         @NotNull(message = "Employee should be present")
         @NotEmpty(message = "Employee should be present")
         @NotBlank(message = "Employee should be present")
-        @JsonProperty("first_name")
+//        @JsonProperty("firstName")
         String firstName,
 
-        @JsonProperty("last_name")
+//        @JsonProperty("lastName")
         String lastName,
 
         @NotNull(message = "Employee email is required")
         @Email(message = "Email must be in correct format")
-        @JsonProperty("email")
+//        @JsonProperty("email")
         String email,
 
         @NotNull(message = "Password should be present")
         @NotEmpty(message = "Password should be present")
         @NotBlank(message = "Password should be present")
         @Size(min = 6, max = 12)
-        @JsonProperty("password")
+//        @JsonProperty("password")
         String password,
 
-        @JsonProperty("title")
+//        @JsonProperty("title")
         String title,
 
-        @JsonProperty("photograph_path")
+//        @JsonProperty("photograph_path")
         String photographPath,
 
-        @JsonProperty("department")
+//        @JsonProperty("department")
         int department
 ) {
 

@@ -46,4 +46,8 @@ public class EmployeeService {
 
         return "Fail";
     }
+
+    public EmployeeResponse employeeDetails(String emailAddress) {
+        return employeeMapper.toEmployeeResponse(employeeRepo.findByEmail(emailAddress));
+    }
 }

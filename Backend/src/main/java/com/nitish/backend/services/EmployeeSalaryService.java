@@ -22,9 +22,14 @@ public class EmployeeSalaryService {
     @Autowired
     SalaryMapper mapper;
 
-    public SalaryResponse getLastSalary(String emailAddress) {
+    public List<SalaryResponse> getLastSalary(String emailAddress) {
+        List<EmployeeSalary> lastSalary = salaryRepo.findByEmployeeId(employeeRepo.findByEmail(emailAddress).getEmployee_id());
+        List<SalaryResponse> salaries = new ArrayList<>();
 
-        return mapper.toSalaryResponse(salaryRepo.findByEmployeeId(employeeRepo.findByEmail(emailAddress).getEmployee_id()));
+        for (EmployeeSalary employeeSalary : lastSalary) {
+            salaries.add(mapper.toSalaryResponse(employeeSalary));
+        }
+        return salaries;
     }
 
     public List<SalaryResponse> getSalaryHistory(String emailAddress) {

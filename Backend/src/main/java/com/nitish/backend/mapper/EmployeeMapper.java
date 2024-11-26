@@ -26,8 +26,7 @@ public class EmployeeMapper {
                 employee.getLastName(),
                 employee.getEmail(),
                 employee.getTitle(),
-                employee.getPhotographPath(),
-                employee.getDepartment()
+                employee.getDepartments().getFirstName()
         );
     }
 }

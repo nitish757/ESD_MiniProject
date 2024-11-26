@@ -12,8 +12,7 @@ public class SalaryHistoryMapper {
         return new SalaryResponse(
                 salary.getPaymentDate(),
                 salary.getAmount(),
-                salary.getEmployees().getFirstName(),
-                salary.getEmployees().getLastName()
+                salary.getDescription()
         );
     }
 }

@@ -12,8 +12,8 @@ import java.util.List;
 @Repository
 public interface SalaryRepo extends JpaRepository<EmployeeSalary, Integer> {
 
-    @Query("select s,e from EmployeeSalary s join Employees e on e.employee_id=s.employee_id where s.employee_id=?1 order by s.paymentDate desc limit 1")
-    EmployeeSalary findByEmployeeId(@Param("employeeId") int employeeId);
+    @Query("select s from EmployeeSalary s where s.employee_id=?1 order by s.paymentDate desc limit 2")
+    List<EmployeeSalary> findByEmployeeId(@Param("employeeId") int employeeId);
 
     @Query("select s from EmployeeSalary s where s.employee_id=?1 order by s.paymentDate desc")
    List<EmployeeSalary> findHistoryByEmployeeId(int employeeId);

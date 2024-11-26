@@ -37,11 +37,11 @@ public class Employees {
     @Column(name="photograph_path")
     private String photographPath;
 
-    @Column(name="department")
+    @Column(name="department", insertable=false, updatable=false, nullable = false)
     private int department;
 
     @ManyToOne
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "department")
     private Departments departments;
 
 }

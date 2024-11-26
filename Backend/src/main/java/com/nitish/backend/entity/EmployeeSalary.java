@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -23,7 +24,7 @@ public class EmployeeSalary {
     private int employee_id;
 
     @Column(name = "payment_date", nullable = false)
-    private Date paymentDate;
+    private LocalDateTime paymentDate;
 
     @Column(name = "amount")
     private int amount;
