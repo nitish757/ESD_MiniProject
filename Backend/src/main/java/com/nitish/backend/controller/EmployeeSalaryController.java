@@ -1,12 +1,9 @@
 package com.nitish.backend.controller;
 
-import com.nitish.backend.configurations.JwtFilter;
-import com.nitish.backend.dto.EmployeeResponse;
 import com.nitish.backend.dto.SalaryResponse;
-import com.nitish.backend.entity.EmployeeSalary;
-import com.nitish.backend.entity.Employees;
 import com.nitish.backend.services.EmployeeSalaryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,5 +24,13 @@ public class EmployeeSalaryController {
     @GetMapping("/salaryHistory/{email}")
     public ResponseEntity<List<SalaryResponse>> getSalaryHistory(@PathVariable String email){
         return ResponseEntity.ok(employeeSalaryService.getSalaryHistory(email));
+    }
+
+    @GetMapping("/download")
+    public ResponseEntity<byte[]> getSalary(@RequestParam String email, @RequestParam int month){
+        byte[] pdfBytes = employeeSalaryService.generatePdf(email, month);
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdfBytes);
     }
 }
