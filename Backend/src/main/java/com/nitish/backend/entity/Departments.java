@@ -15,14 +15,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Departments")
+@Table(name = "departments")
 public class Departments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int department_id;
+    @Column(name = "department_id")
+    private int departmentId;
 
     @Column(name = "name", nullable = false)
-    private String firstName;
+    private String name;
 
     @Column(name = "capacity")
     private int capacity;

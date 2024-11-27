@@ -1,6 +1,7 @@
 package com.nitish.backend.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.nitish.backend.entity.Departments;
 import jakarta.validation.constraints.*;
 
 public record EmployeeRequest(
@@ -32,7 +33,7 @@ public record EmployeeRequest(
         String photographPath,
 
 //        @JsonProperty("department")
-        int department
+        Departments departmentId
 ) {
 
 }

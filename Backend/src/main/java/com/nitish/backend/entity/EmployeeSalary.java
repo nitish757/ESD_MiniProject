@@ -14,14 +14,16 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Employee_Salary")
+@Table(name = "employee_salary")
 public class EmployeeSalary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private int id;
 
-    @Column(name = "employee_id",insertable=false, updatable=false, nullable = false)
-    private int employee_id;
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employees employeeId;
 
     @Column(name = "payment_date", nullable = false)
     private LocalDateTime paymentDate;
@@ -32,7 +34,4 @@ public class EmployeeSalary {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
-    private Employees employees;
 }

@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -16,8 +14,9 @@ import java.util.List;
 @Table(name = "employees")
 public class Employees {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int employee_id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name="employee_id")
+    private int employeeId;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -37,11 +36,12 @@ public class Employees {
     @Column(name="photograph_path")
     private String photographPath;
 
-    @Column(name="department", insertable=false, updatable=false, nullable = false)
-    private int department;
-
     @ManyToOne
-    @JoinColumn(name = "department")
-    private Departments departments;
+    @JoinColumn(name="department_id")
+    private Departments departmentId;
+
+//    @ManyToOne
+//    @JoinColumn(name = "departmentId", nullable = false)
+//    private Departments department;
 
 }

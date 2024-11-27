@@ -10,9 +10,7 @@ public record EmployeeResponse(
 //        @JsonProperty("email")
         String email,
 //        @JsonProperty("title")
-        String title,
-//        @JsonProperty("photograph_path")
-//        String photographPath,
-//        @JsonProperty("department")
-        String department){
+        String title
+
+) {
 }
