@@ -18,19 +18,19 @@ public class EmployeeSalaryController {
 
     @GetMapping("/salary/{email}")
     public ResponseEntity<List<SalaryResponse>> getLastSalary(@PathVariable String email){
-        return ResponseEntity.ok(employeeSalaryService.getLastSalary(email));
+            return ResponseEntity.ok(employeeSalaryService.getLastSalary(email));
     }
 
     @GetMapping("/salaryHistory/{email}")
     public ResponseEntity<List<SalaryResponse>> getSalaryHistory(@PathVariable String email){
-        return ResponseEntity.ok(employeeSalaryService.getSalaryHistory(email));
+            return ResponseEntity.ok(employeeSalaryService.getSalaryHistory(email));
     }
 
     @GetMapping("/download")
     public ResponseEntity<byte[]> getSalary(@RequestParam String email, @RequestParam int month){
-        byte[] pdfBytes = employeeSalaryService.generatePdf(email, month);
-        return ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_PDF)
-                .body(pdfBytes);
+            byte[] pdfBytes = employeeSalaryService.generatePdf(email, month);
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(pdfBytes);
     }
 }

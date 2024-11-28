@@ -9,6 +9,8 @@ import com.itextpdf.layout.element.Table;
 import com.nitish.backend.dto.SalaryResponse;
 import com.nitish.backend.entity.EmployeeSalary;
 import com.nitish.backend.entity.Employees;
+import com.nitish.backend.exceptions.EmployeeNotFoundException;
+import com.nitish.backend.exceptions.InvalidSalaryDataException;
 import com.nitish.backend.mapper.SalaryMapper;
 import com.nitish.backend.repo.EmployeeRepo;
 import com.nitish.backend.repo.SalaryRepo;
@@ -36,6 +38,10 @@ public class EmployeeSalaryService {
 //        List<EmployeeSalary> lastSalary = salaryRepo.findByEmployeeId(employeeRepo.findByEmail(emailAddress).getEmployeeId());
         Employees employee = employeeRepo.findByEmail(emailAddress);
 
+        if (employee == null) {
+            throw new EmployeeNotFoundException(emailAddress);
+        }
+
         List<EmployeeSalary> lastSalary = salaryRepo.findByEmployee(employee);
         List<SalaryResponse> salaries = new ArrayList<>();
 
@@ -48,6 +54,11 @@ public class EmployeeSalaryService {
     public List<SalaryResponse> getSalaryHistory(String emailAddress) {
 //        List<EmployeeSalary> latestSalary = salaryRepo.findHistoryByEmployeeId(employeeRepo.findByEmail(emailAddress).getEmployeeId());
         Employees employee = employeeRepo.findByEmail(emailAddress);
+
+        if (employee == null) {
+            throw new EmployeeNotFoundException(emailAddress);
+        }
+
         List<EmployeeSalary> latestSalary = salaryRepo.findHistoryByEmployeeId(employee);
         List<SalaryResponse> salaryList = new ArrayList<>();
 
@@ -67,37 +78,41 @@ public class EmployeeSalaryService {
 
         List<EmployeeSalary> monthlySalary = salaryRepo.findByMonth(employee, month);
 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PdfWriter writer = new PdfWriter(outputStream);
-        Document document = new Document(new com.itextpdf.kernel.pdf.PdfDocument(writer));
-
-        document.add(new Paragraph("Salary Details for the Month").setBold().setFontSize(18));
-        document.add(new Paragraph("Employee: " + employee.getFirstName()+" "+employee.getLastName()).setFontSize(12));
-        document.add(new Paragraph("Email: " + email).setFontSize(12));
-        document.add(new Paragraph("Month: " + Month.of(month).name()).setFontSize(12));
-        document.add(new Paragraph("\n"));
-
-        Table table = new Table(new float[]{3, 5, 3});
-        table.addCell(new Cell().add("Payment Date").setBold());
-        table.addCell(new Cell().add("Salary Description").setBold());
-        table.addCell(new Cell().add("Salary Amount").setBold());
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        for (EmployeeSalary salary : monthlySalary) {
-            table.addCell(salary.getPaymentDate().format(formatter));
-            table.addCell(salary.getDescription());
-            table.addCell(String.valueOf(salary.getAmount()));
+        if (monthlySalary == null || monthlySalary.isEmpty()) {
+            throw new InvalidSalaryDataException("No salary data found for the specified month.");
         }
 
-        document.add(table);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            PdfWriter writer = new PdfWriter(outputStream);
+            Document document = new Document(new com.itextpdf.kernel.pdf.PdfDocument(writer));
 
-        double totalSalary = monthlySalary.stream()
-                .mapToDouble(EmployeeSalary::getAmount)
-                .sum();
-        document.add(new Paragraph("\nTotal Salary: " + totalSalary).setBold().setFontSize(12));
+            document.add(new Paragraph("Salary Details for the Month").setBold().setFontSize(18));
+            document.add(new Paragraph("Employee: " + employee.getFirstName() + " " + employee.getLastName()).setFontSize(12));
+            document.add(new Paragraph("Email: " + email).setFontSize(12));
+            document.add(new Paragraph("Month: " + Month.of(month).name()).setFontSize(12));
+            document.add(new Paragraph("\n"));
 
-        document.close();
+            Table table = new Table(new float[]{3, 5, 3});
+            table.addCell(new Cell().add("Payment Date").setBold());
+            table.addCell(new Cell().add("Salary Description").setBold());
+            table.addCell(new Cell().add("Salary Amount").setBold());
 
-        return outputStream.toByteArray();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            for (EmployeeSalary salary : monthlySalary) {
+                table.addCell(salary.getPaymentDate().format(formatter));
+                table.addCell(salary.getDescription());
+                table.addCell(String.valueOf(salary.getAmount()));
+            }
+
+            document.add(table);
+
+            double totalSalary = monthlySalary.stream()
+                    .mapToDouble(EmployeeSalary::getAmount)
+                    .sum();
+            document.add(new Paragraph("\nTotal Salary: " + totalSalary).setBold().setFontSize(12));
+
+            document.close();
+
+            return outputStream.toByteArray();
     }
 }
