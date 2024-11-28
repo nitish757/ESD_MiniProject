@@ -1,12 +1,16 @@
 import { useState, useEffect } from "react";
 import fetchData from "../utils/network"; 
+import  { jwtDecode } from "jwt-decode";
 
-const useEmployeeDetails = (email) => {
+const useEmployeeDetails = () => {
   const [employee, setEmployee] = useState(null);
 
   useEffect(() => {
     const fetchDetails = async () => {
       try {
+        const token = localStorage.getItem("jwtToken");
+        const decoded = jwtDecode(token);
+        const email = decoded.sub;
         const data = await fetchData("dashboard", email); 
         setEmployee(data);
       } catch (error) {
@@ -14,10 +18,10 @@ const useEmployeeDetails = (email) => {
       }
     };
 
-    if (email) {
+    // if (email) {
       fetchDetails();
-    }
-  }, [email]);
+    // }
+  }, []);
 
   return employee;
 };

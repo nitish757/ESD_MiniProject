@@ -32,7 +32,7 @@ const SalaryModal = ({ visible, onClose, salaries }) => {
               >
                 <td>{salary.paymentDate}</td>
                 <td>{salary.description}</td>
-                <td>{salary.salary}</td>
+                <td>₹{salary.salary}</td>
               </tr>
             ))}
           </tbody>

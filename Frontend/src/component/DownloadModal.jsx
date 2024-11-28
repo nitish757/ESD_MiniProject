@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Modal, Button, Select, Spin } from "antd";
-import axios from "axios";
+import fetchData from "../utils/network";
 import PropTypes from "prop-types";
+import  { jwtDecode } from "jwt-decode";
 
-const DownloadModal = ({ visible, onClose, email }) => {
+const DownloadModal = ({ visible, onClose}) => {
   const [selectedMonth, setSelectedMonth] = useState(""); // Selected month for download
   const [errorMessage, setErrorMessage] = useState(""); // Error message for invalid month
   const [loading, setLoading] = useState(false); // Loading state for download
@@ -31,16 +32,12 @@ const DownloadModal = ({ visible, onClose, email }) => {
 
     setLoading(true);
     try {
-      const token = JSON.parse(localStorage.getItem("jwtToken")); 
-      const response = await axios.get("http://localhost:8080/download", {
-        params: { email, month: selectedMonth },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        responseType: "blob",
-      });
+      const token = localStorage.getItem("jwtToken"); 
+      const decoded = jwtDecode(token);
+      const email = decoded.sub;
+      const data = await fetchData("salary", email);
 
-      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const url = window.URL.createObjectURL(new Blob([data]));
       const link = document.createElement("a");
       link.href = url;
       link.setAttribute("download", `SalarySlip-${selectedMonth}.pdf`);
@@ -101,5 +98,4 @@ export default DownloadModal;
 DownloadModal.propTypes = {
     visible: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
-    email: PropTypes.string.isRequired,
   };

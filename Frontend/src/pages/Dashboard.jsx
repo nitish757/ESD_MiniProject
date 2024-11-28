@@ -1,22 +1,23 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import SideBar from "../component/SideBar";
 import SalaryModal from "../component/SalaryModal";
 import useEmployeeDetails from "../hooks/useEmployeeDetails";
 import useSalaryDetails from "../hooks/useSalaryDetails";
 import useSalaryHistory from "../hooks/useSalaryHistory";
 import DownloadModal from "../component/DownloadModal"; 
+
 const Dashboard = () => {
-  const location = useLocation();
-  const email = location.state?.email;
+  // const location = useLocation();
+  // const email = location.state?.email;
 
   const [modalVisible, setModalVisible] = useState(false); 
   const [mVisible2, setMVisible2] = useState(false); 
   const [downloadModalVisible, setDownloadModalVisible] = useState(false); 
 
-  const employee = useEmployeeDetails(email);
-  const salaries = useSalaryDetails(email);
-  const salaryHistory = useSalaryHistory(email);
+  const employee = useEmployeeDetails();
+  const salaries = useSalaryDetails();
+  const salaryHistory = useSalaryHistory();
 
   const handleSalary = () => {
     setModalVisible(true);
@@ -66,23 +67,20 @@ const Dashboard = () => {
                     style={{ cursor: 'pointer'}}
                   >
                     <span className="text-success">View Current Salary</span>
-                    <i className="bi bi-wallet2"></i>
                   </li>
                   <li
                     onClick={handleSalaryHistory}
                     className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
                     style={{ cursor: 'pointer'}}
                   >
-                    <span className="text-info">View Salary Disbursement History</span>
-                    <i className="bi bi-clock-history"></i>
+                    <span className="text-warning">View Salary Disbursement History</span>
                   </li>
                   <li
                     onClick={handleDownload} 
                     className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
                     style={{ cursor: 'pointer'}}
                   >
-                    <span className="text-warning">Download Payslip</span>
-                    <i className="bi bi-file-earmark-pdf"></i>
+                    <span className="text-danger">Download Payslip</span>
                   </li>
                 </ul>
               </div>
@@ -104,7 +102,6 @@ const Dashboard = () => {
           <DownloadModal
             visible={downloadModalVisible}
             onClose={() => setDownloadModalVisible(false)} 
-            email={email}
           />
         </div>
       </div>

@@ -21,9 +21,9 @@ const Login = () => {
       const res = await axios.post("http://localhost:8080/login", payload);
       if (res.status === 200) {
         const token = res.data;
-        localStorage.setItem("jwtToken", JSON.stringify(token));
+        localStorage.setItem("jwtToken", token);
         console.log("Login Success", token);
-        navigate("/Dashboard", { state: {email: email} });
+        navigate("/Dashboard");
       }
     } catch (err) {
       console.error("Login Failed", err);
