@@ -1,0 +1,22 @@
+-- CREATE TABLE departments (
+--          department_id INT AUTO_INCREMENT PRIMARY KEY,
+--          name VARCHAR(100),
+--          capacity INT);
+-- --
+-- -- --
+-- CREATE TABLE employees (
+--     employee_id INT AUTO_INCREMENT PRIMARY KEY,
+--     first_name VARCHAR(255) NOT NULL,
+--     last_name VARCHAR(255) NOT NULL,
+--     email VARCHAR(255) UNIQUE NOT NULL,
+--     password VARCHAR(255) NOT NULL,
+--     title VARCHAR(255),
+--     photograph_path VARCHAR(255),
+--     department_id INT );
+-- -- --
+-- CREATE TABLE employee_salary (
+--          id INT AUTO_INCREMENT PRIMARY KEY,
+--          employee_id INT NOT NULL,
+--          payment_date DATE NOT NULL,
+--          amount DECIMAL(10, 2),
+--          description VARCHAR(255));

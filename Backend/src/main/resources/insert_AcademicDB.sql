@@ -1,0 +1,65 @@
+-- INSERT INTO departments (department_id, name, capacity)
+-- VALUES
+--     (1, 'Human Resources', 50),
+--     (2, 'Information Technology', 100),
+--     (3, 'Finance', 30),
+--     (4, 'Sales', 75),
+--     (5, 'Marketing', 60);
+
+
+-- INSERT INTO employees (employee_id, first_name, last_name, email, password, title, photograph_path, department_id)
+-- VALUES
+--     (1, 'John', 'Doe', 'john.doe@example.com', 'John@123', 'Manager', '/photos/john_doe.jpg', 1),
+--     (2, 'Jane', 'Smith', 'jane.smith@example.com', 'Jane@123', 'Software Engineer', '/photos/jane_smith.jpg', 2),
+--     (3, 'Alice', 'Brown', 'alice.brown@example.com', 'Alice@123', 'Analyst', '/photos/alice_brown.jpg', 3),
+--     (4, 'Bob', 'Johnson', 'bob.johnson@example.com', 'Bob@123', 'HR Specialist', '/photos/bob_johnson.jpg', 4),
+--     (5, 'Eve', 'Williams', 'eve.williams@example.com', 'Eve@123', 'Data Scientist', '/photos/eve_williams.jpg', 5),
+--     (6, 'Charlie', 'Davis', 'charlie.davis@example.com', 'Charlie@123', 'Intern', '/photos/charlie_davis.jpg', 1),
+--     (7, 'David', 'Clark', 'david.clark@example.com', 'David@123', 'Project Manager', '/photos/david_clark.jpg', 2),
+--     (8, 'Sophia', 'Taylor', 'sophia.taylor@example.com', 'Sophia@123', 'UX Designer', '/photos/sophia_taylor.jpg', 3),
+--     (9, 'Michael', 'Martinez', 'michael.martinez@example.com', 'Michael@123', 'Business Analyst', '/photos/michael_martinez.jpg', 4),
+--     (10, 'Emma', 'Harris', 'emma.harris@example.com', 'Emma@123', 'Quality Engineer', '/photos/emma_harris.jpg', 5);
+-- --
+-- INSERT INTO employee_salary (id, employee_id, payment_date, amount, description)
+-- VALUES
+--     -- Employee 1 (3 months, 4 descriptions per month)
+--     (1, 1, '2024-09-01', 5000.00, 'Monthly Salary'),
+--     (2, 1, '2024-09-01', 5500.00, 'Monthly Bonus Included'),
+--     (3, 1, '2024-09-01', 500.00, 'Overtime Payment'),
+--     (4, 1, '2024-09-01', 1000.00, 'Yearly Adjustment'),
+--     (5, 1, '2024-10-01', 5000.00, 'Monthly Salary'),
+--     (6, 1, '2024-10-01', 5500.00, 'Monthly Bonus Included'),
+--     (7, 1, '2024-10-01', 500.00, 'Overtime Payment'),
+--     (8, 1, '2024-10-01', 1000.00, 'Yearly Adjustment'),
+--     (9, 1, '2024-11-01', 5000.00, 'Monthly Salary'),
+--     (10, 1, '2024-11-01', 5500.00, 'Monthly Bonus Included'),
+--     (11, 1, '2024-11-01', 500.00, 'Overtime Payment'),
+--     (12, 1, '2024-11-01', 1000.00, 'Yearly Adjustment'),
+--
+--     -- Employee 2 (3 months, 4 descriptions per month)
+--     (13, 2, '2024-09-01', 4500.00, 'Monthly Salary'),
+--     (14, 2, '2024-09-01', 5000.00, 'Monthly Bonus Included'),
+--     (15, 2, '2024-09-01', 400.00, 'Overtime Payment'),
+--     (16, 2, '2024-09-01', 900.00, 'Yearly Adjustment'),
+--     (17, 2, '2024-10-01', 4500.00, 'Monthly Salary'),
+--     (18, 2, '2024-10-01', 5000.00, 'Monthly Bonus Included'),
+--     (19, 2, '2024-10-01', 400.00, 'Overtime Payment'),
+--     (20, 2, '2024-10-01', 900.00, 'Yearly Adjustment'),
+--     (21, 2, '2024-11-01', 4500.00, 'Monthly Salary'),
+--     (22, 2, '2024-11-01', 5000.00, 'Monthly Bonus Included'),
+--     (23, 2, '2024-11-01', 400.00, 'Overtime Payment'),
+--     (24, 2, '2024-11-01', 900.00, 'Yearly Adjustment'),
+--
+--     -- Employee 3 (3 months, 4 descriptions per month)
+--     (25, 3, '2024-09-01', 6000.00, 'Monthly Salary'),
+--     (26, 3, '2024-09-01', 6500.00, 'Monthly Bonus Included'),
+--     (27, 3, '2024-09-01', 600.00, 'Overtime Payment'),
+--     (28, 3, '2024-09-01', 1200.00, 'Yearly Adjustment'),
+--     (29, 3, '2024-10-01', 6000.00, 'Monthly Salary'),
+--     (30, 3, '2024-10-01', 6500.00, 'Monthly Bonus Included'),
+--     (31, 3, '2024-10-01', 600.00, 'Overtime Payment'),
+--     (32, 3, '2024-10-01', 1200.00, 'Yearly Adjustment'),
+--     (33, 3, '2024-11-01', 6000.00, 'Monthly Salary'),
+--     (34, 3, '2024-11-01', 6500.00, 'Monthly Bonus Included'),
+--     (35, 3, '2024-11-01', 600.00, 'Overtime Payment'),
+--     (36, 3, '2024-11-01', 1200.00, 'Yearly Adjustment');
