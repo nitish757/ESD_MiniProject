@@ -102,6 +102,7 @@ const Dashboard = () => {
           <DownloadModal
             visible={downloadModalVisible}
             onClose={() => setDownloadModalVisible(false)} 
+            email={employee.email}
           />
         </div>
       </div>
