@@ -20,10 +20,23 @@ h1 {
   text-align: left;
 }
 
-.employee-table th {
-  background-color: #f4f4f4;
+.employee-table tbody tr:nth-child(odd) {
+  background-color: #daecfc; 
 }
 
-.employee-table tr:nth-child(even) {
-  background-color: #f9f9f9;
+.employee-table tbody tr:nth-child(even) {
+  background-color: #ffffff; 
+}
+
+.employee-dashboard-header {
+  position: fixed; 
+  top: 0; 
+  left: 25%; 
+  width: 75%;
+  background-color: #75b5fa;
+  color: white; 
+  padding: 16px; 
+  text-align: center;
+  z-index: 1000; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

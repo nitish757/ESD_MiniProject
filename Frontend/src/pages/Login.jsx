@@ -10,8 +10,8 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Clear previous errors
-
+    setError(""); 
+    
     const payload = {
       email: email,
       password: password,

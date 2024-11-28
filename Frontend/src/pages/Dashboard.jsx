@@ -1,40 +1,35 @@
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
-
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
+import SideBar from "../component/SideBar";
+import SalaryModal from "../component/SalaryModal";
+import useEmployeeDetails from "../hooks/useEmployeeDetails";
+import useSalaryDetails from "../hooks/useSalaryDetails";
+import useSalaryHistory from "../hooks/useSalaryHistory";
+import DownloadModal from "../component/DownloadModal"; 
 const Dashboard = () => {
   const location = useLocation();
-  const navigate= useNavigate();
   const email = location.state?.email;
-  const [employee, setEmployee] = useState(null); // State for employee details
 
-  useEffect(() => {
-    const fetchEmployeeDetails = async () => {
-      try {
-        const token = JSON.parse(localStorage.getItem("jwtToken"));
+  const [modalVisible, setModalVisible] = useState(false); 
+  const [mVisible2, setMVisible2] = useState(false); 
+  const [downloadModalVisible, setDownloadModalVisible] = useState(false); 
 
-        const response = await axios.get(`http://localhost:8080/dashboard/${email}`, {
-          headers: {
-            Authorization: `Bearer ${token}`, 
-          },
-        });
+  const employee = useEmployeeDetails(email);
+  const salaries = useSalaryDetails(email);
+  const salaryHistory = useSalaryHistory(email);
 
-        setEmployee(response.data);
-      } catch (error) {
-        console.error("Error fetching employee details:", error);
-      }
-    };
+  const handleSalary = () => {
+    setModalVisible(true);
+  };
 
-    fetchEmployeeDetails();
-  }, [email]);
+  const handleSalaryHistory = () => {
+    setMVisible2(true);
+  };
 
-  const handleClick = ()=>{
-    navigate("/SalaryDetails", {state: {email:email}});
-  }
 
-  const handleClick2 = ()=>{
-    navigate("/SalaryHistory", {state: {email: email}});
-  }
+  const handleDownload = () => {
+    setDownloadModalVisible(true);
+  };
 
   if (!employee) {
     return <div className="p-4">Loading employee details...</div>;
@@ -42,36 +37,75 @@ const Dashboard = () => {
 
   return (
     <div className="container-fluid">
+      <h2 className="mb-4 text-white bg-primary p-4 employee-dashboard-header">
+        Employee Dashboard
+      </h2>
       <div className="row">
-        {/* Left Sidebar */}
-        <div className="col-md-3 bg-light border-end vh-100 p-4">
-          <h4 className="mb-4">Employee Details</h4>
-          <p><strong>Name:</strong> {employee.firstName} {employee.lastName}</p>
-          <p><strong>Role:</strong> {employee.title}</p>
-          <p><strong>Department:</strong> {employee.department}</p>
-          <p><strong>Email:</strong> {employee.email}</p>
-        </div>
+        <SideBar
+          firstName={employee.firstName}
+          lastName={employee.lastName}
+          title={employee.title}
+          department={employee.department}
+          email={employee.email}
+        />
+        <div className="col-md-9 p-5">
+          <div className="d-flex justify-content-center align-items-center vh-100">
+            <div className="card shadow-lg" style={{ width: "50rem", padding: "2rem" }}>
+              <div className="card-body">
+                <h5 className="card-title">
+                  Welcome, {employee.firstName} {employee.lastName}
+                </h5>
+                <p className="card-text">
+                  View your salary, download your payslips, or access your salary disbursement history.
+                </p>
 
-        {/* Middle Section */}
-        <div className="col-md-9 p-4">
-          <h2 className="mb-4">Dashboard</h2>
-          <ul className="list-group">
-            <li onClick={handleClick} className="list-group-item">
-            View Salary
-               {/* to="/SalaryDetails" className="text-decoration-none">View Salary</Link> */}
-            </li>
-            <li onClick={handleClick2} className="list-group-item">View Salary History
-              {/* <Link to="view-salary-history" className="text-decoration-none">View Salary History</Link> */}
-            </li>
-            {/*<li className="list-group-item">
-              <Link to="download-payslip" className="text-decoration-none">Download Payslip</Link>
-            </li> */}
-          </ul>
-
-          {/* Outlet for child routes */}
-          <div className="mt-4">
-            <Outlet />
+                <ul className="list-group list-group-flush">
+                  <li
+                    onClick={handleSalary}
+                    className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                    style={{ cursor: 'pointer'}}
+                  >
+                    <span className="text-success">View Current Salary</span>
+                    <i className="bi bi-wallet2"></i>
+                  </li>
+                  <li
+                    onClick={handleSalaryHistory}
+                    className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                    style={{ cursor: 'pointer'}}
+                  >
+                    <span className="text-info">View Salary Disbursement History</span>
+                    <i className="bi bi-clock-history"></i>
+                  </li>
+                  <li
+                    onClick={handleDownload} 
+                    className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                    style={{ cursor: 'pointer'}}
+                  >
+                    <span className="text-warning">Download Payslip</span>
+                    <i className="bi bi-file-earmark-pdf"></i>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
+
+          <SalaryModal
+            visible={modalVisible}
+            onClose={()=> setModalVisible(false)}
+            salaries={salaries}
+          />
+
+          <SalaryModal
+            visible={mVisible2}
+            onClose={()=> setMVisible2(false)}
+            salaries={salaryHistory}
+          />
+
+          <DownloadModal
+            visible={downloadModalVisible}
+            onClose={() => setDownloadModalVisible(false)} 
+            email={email}
+          />
         </div>
       </div>
     </div>
